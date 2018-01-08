@@ -1,6 +1,8 @@
 package cn.com.betasoft.saas.analysis.dao;
 
 import cn.com.betasoft.saas.analysis.model.*;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -19,5 +21,7 @@ public interface MySqlBaseDao {
     public List<AreaRatioModel> selectAreaRatioCount();
     public List<IndustryRatioModel> selectIndustryRatioCount();
     public String getCollectionTime();
+
+    public List<TasksModel> getTasks();
 
 }

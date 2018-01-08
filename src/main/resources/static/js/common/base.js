@@ -3,10 +3,16 @@ $(document).ready(function() {
     $(".sidebar-menu a").on("click",function(){
         var url = $(this).data("path");
         if(url != "" && url != null){
+            var data = {};
+            if ("/tasks/taskImplementation" == url) {
+                var pageNo = 0;
+                var pageSize = 18;
+                data = {"pageNo": pageNo, "pageSize": pageSize};
+            }
             $.ajax({
                 url : url,
                 type : "GET",
-                data : {},
+                data: data,
                 success : function(result){
                     $("#mainContent").html(result);
                 },

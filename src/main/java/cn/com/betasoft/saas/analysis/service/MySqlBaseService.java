@@ -4,6 +4,8 @@ package cn.com.betasoft.saas.analysis.service;
 import cn.com.betasoft.saas.analysis.annotation.DataSourceTypeAnno;
 import cn.com.betasoft.saas.analysis.datasource.DataSourceEnum;
 import cn.com.betasoft.saas.analysis.model.*;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -81,5 +83,12 @@ public interface MySqlBaseService {
      * @return
      */
     public String getCollectionTime();
+
+    /**
+     * 获取任务信息
+     *
+     * @return
+     */
+    public PageInfo<TasksModel> getTasks(int pageNo, int pageSize);
 
 }

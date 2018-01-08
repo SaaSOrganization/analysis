@@ -6,6 +6,9 @@ import cn.com.betasoft.saas.analysis.model.*;
 import cn.com.betasoft.saas.analysis.processor.SysUserProcessor;
 import cn.com.betasoft.saas.analysis.service.MySqlBaseService;
 import cn.com.betasoft.saas.analysis.utils.ConfigUtils;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,5 +124,12 @@ public class MySqlBaseServiceImpl implements MySqlBaseService {
     @Override
     public String getCollectionTime(){
         return mySqlBaseDao.getCollectionTime();
+    }
+
+    @Override
+    public PageInfo<TasksModel> getTasks(int pageNo, int pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        PageInfo<TasksModel> page = new PageInfo<TasksModel>(mySqlBaseDao.getTasks());
+        return page;
     }
 }

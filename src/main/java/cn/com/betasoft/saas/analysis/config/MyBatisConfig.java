@@ -6,6 +6,8 @@ package cn.com.betasoft.saas.analysis.config;
 
 import cn.com.betasoft.saas.analysis.datasource.DataSourceEnum;
 import cn.com.betasoft.saas.analysis.datasource.DynamicDataSource;
+import com.github.pagehelper.PageHelper;
+import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -22,6 +24,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * springboot集成mybatis的基本入口 1）创建数据源(如果采用的是默认的tomcat-jdbc数据源，则不需要)
@@ -76,6 +79,16 @@ public class MyBatisConfig{
                                                @Value("mybatis.mapperLocations") String mapperLocations) throws Exception {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dynamicDataSource);// 指定数据源(这个必须有，否则报错)
+        //分页插件
+        PageHelper pageHelper = new PageHelper();
+        Properties properties = new Properties();
+        properties.setProperty("reasonable", "true");
+        properties.setProperty("supportMethodsArguments", "true");
+        properties.setProperty("returnPageInfo", "check");
+        properties.setProperty("params", "count=countSql");
+        pageHelper.setProperties(properties);
+        //添加插件
+        factoryBean.setPlugins(new Interceptor[]{pageHelper});
         // 下边两句仅仅用于*.xml文件，如果整个持久层操作不需要使用到xml文件的话（只用注解就可以搞定），则不加
         factoryBean.setTypeAliasesPackage(typeAliasesPackage);// 指定基包
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();

@@ -5,6 +5,8 @@ import cn.com.betasoft.saas.analysis.dao.MySqlBaseDao;
 import cn.com.betasoft.saas.analysis.datasource.DataSourceEnum;
 import cn.com.betasoft.saas.analysis.mapper.MySqlBaseMapper;
 import cn.com.betasoft.saas.analysis.model.*;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -89,5 +91,11 @@ public class MySqlBaseDaoImpl implements MySqlBaseDao {
     @Override
     public String getCollectionTime(){
         return mySqlBaseMapper.getCollectionTime();
+    }
+
+    @DataSourceTypeAnno(DataSourceEnum.mysql)
+    @Override
+    public List<TasksModel> getTasks() {
+        return mySqlBaseMapper.getTasks();
     }
 }

@@ -1,6 +1,8 @@
 package cn.com.betasoft.saas.analysis.mapper;
 
 import cn.com.betasoft.saas.analysis.model.*;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
@@ -50,4 +52,7 @@ public interface MySqlBaseMapper {
 
     @Select("SELECT DISTINCT date FROM infosystem_agentratio WHERE date=(SELECT MAX(date) FROM infosystem_agentratio)")
     public String getCollectionTime();
+
+    @Select("SELECT JOB_EXECUTION_ID,bje.JOB_INSTANCE_ID,JOB_NAME,CREATE_TIME,START_TIME,END_TIME,STATUS,EXIT_CODE,EXIT_MESSAGE FROM batch_job_instance  bji JOIN batch_job_execution bje where bji.JOB_INSTANCE_ID=bje.JOB_INSTANCE_ID ORDER BY JOB_EXECUTION_ID")
+    public List<TasksModel> getTasks();
 }
